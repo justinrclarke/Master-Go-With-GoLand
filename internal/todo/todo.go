@@ -2,6 +2,7 @@ package todo
 
 import (
 	"errors"
+	"strings"
 )
 
 type Item struct {
@@ -30,6 +31,17 @@ func (s *Service) Add(todo string) error {
 		Status: "TO_BE_STARTED",
 	})
 	return nil
+}
+
+func (s *Service) Search(query string) []string {
+	var results []string
+	for _, todo := range s.todos {
+		if strings.Contains(todo.Task, query) {
+			results = append(result, todo.Task)
+		}
+	}
+
+	return results
 }
 
 func (s *Service) GetAll() []Item {
